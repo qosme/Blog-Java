@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +29,11 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    //se mapea por author porque en Post esta la variable autor que hace referencia al usuario
+    //con cascade all y orphan removal, todos los posts del usuario se eliminan si el usuario es eliminado, para mantener la integridad de la bd
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts =  new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime creationDate;

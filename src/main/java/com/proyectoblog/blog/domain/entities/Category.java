@@ -3,6 +3,8 @@ package com.proyectoblog.blog.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,6 +22,11 @@ public class Category {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Post> posts = new ArrayList<>();
+    //category no lleva cascade, porque tiene ciclo de vida diferente al de usuario-post y no debe borrarse si tiene posts
+    //la eliminación de categorias esta en service
 
     //generación de equals y hashcode
 

@@ -3,7 +3,9 @@ package com.proyectoblog.blog.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,11 @@ public class Tag {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    //se mapea con tags porque ese es el nombre del set en Post
+    @ManyToMany(mappedBy = "tags")
+    private Set<Post> posts = new HashSet<>();
+    //no hay cascade, porque eliminar un tag no debería eliminar sus posts y viceversa
 
     //Generar equals y Hashcode
     @Override
