@@ -3,6 +3,7 @@ package com.proyectoblog.blog.services.implementations;
 import com.proyectoblog.blog.domain.entities.Category;
 import com.proyectoblog.blog.repositories.CategoryRepository;
 import com.proyectoblog.blog.services.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
             }
             categoryRepository.deleteById(id);
         }
+    }
+
+    @Override
+    public Category getCategoryByID(UUID id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("La categoría con el id "+id+" no existe"));
     }
 }
