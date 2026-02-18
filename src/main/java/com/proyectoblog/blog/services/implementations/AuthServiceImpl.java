@@ -39,12 +39,27 @@ public class AuthServiceImpl implements AuthenticationService {
 
     //generación de tokens
 
+    //@Override
+    //public String generateToken(UserDetails userDetails) {
+    //    Map<String, Object> claims = new HashMap<>();
+    //    Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))
+    //            .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration)).signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+    //    return "";
+    //}
+
     @Override
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration)).signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
-        return "";
+
+        String token = Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+
+        return token;
     }
 
     @Override
